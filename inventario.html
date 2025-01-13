@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário RPG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .inventory-table {
+            width: 80%; /* Tamanho da tabela em relação à tela */
+            max-width: 1200px; /* Limite de largura */
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        td input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .inventory-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .inventory-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .add-row {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .add-row button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .add-row button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Inventário RPG</h1>
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody id="inventory-body">
+            <tr>
+                <td><input type="text" placeholder="Nome do Item"></td>
+                <td><input type="text" placeholder="Descrição do Item"></td>
+                <td><input type="number" placeholder="Quantidade" min="0"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Nome do Item"></td>
+                <td><input type="text" placeholder="Descrição do Item"></td>
+                <td><input type="number" placeholder="Quantidade" min="0"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Nome do Item"></td>
+                <td><input type="text" placeholder="Descrição do Item"></td>
+                <td><input type="number" placeholder="Quantidade" min="0"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Nome do Item"></td>
+                <td><input type="text" placeholder="Descrição do Item"></td>
+                <td><input type="number" placeholder="Quantidade" min="0"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Nome do Item"></td>
+                <td><input type="text" placeholder="Descrição do Item"></td>
+                <td><input type="number" placeholder="Quantidade" min="0"></td>
+            </tr>
+            <!-- Mais linhas podem ser adicionadas -->
+        </tbody>
+    </table>
+
+    <div class="add-row">
+        <button onclick="addRow()">Adicionar Linha</button>
+    </div>
+
+    <script>
+        function addRow() {
+            const tableBody = document.getElementById("inventory-body");
+            const newRow = document.createElement("tr");
+            
+            newRow.innerHTML = `
+                <td><input type="text" placeholder="Nome do Item"></td>
+                <td><input type="text" placeholder="Descrição do Item"></td>
+                <td><input type="number" placeholder="Quantidade" min="0"></td>
+            `;
+            
+            tableBody.appendChild(newRow);
+        }
+    </script>
+
+</body>
+</html>

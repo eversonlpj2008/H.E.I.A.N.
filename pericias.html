@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perícias RPG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap; /* Permite o ajuste responsivo em telas menores */
+        }
+
+        .skills-column {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            min-width: 250px; /* Tamanho mínimo para cada coluna */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px; /* Ajusta o tamanho da fonte */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Perícias RPG</h1>
+
+    <div class="skills-container">
+        <!-- Primeira coluna -->
+        <div class="skills-column">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Perícia</th>
+                        <th>Atributo</th>
+                        <th>MT.</th>
+                        <th>ESP.</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Acrobacia</td><td>Destreza</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Astúcia</td><td>Inteligência</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Atletismo</td><td>Força</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Direção</td><td>Inteligência</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Enganação</td><td>Carisma</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Feitiçaria</td><td>Inteligência</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Segunda coluna -->
+        <div class="skills-column">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Perícia</th>
+                        <th>Atributo</th>
+                        <th>MT.</th>
+                        <th>ESP.</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Fortitude</td><td>Constituição</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Furtividade</td><td>Destreza</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>História</td><td>Inteligência</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Integridade</td><td>Constituição</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Intimidação</td><td>Carisma</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Intuição</td><td>Sabedoria</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Terceira coluna -->
+        <div class="skills-column">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Perícia</th>
+                        <th>Atributo</th>
+                        <th>MT.</th>
+                        <th>ESP.</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Investigação</td><td>Inteligência</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Luta</td><td>Força/Destreza</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Medicina</td><td>Sabedoria</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Ocultismo</td><td>Sabedoria</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Percepção</td><td>Sabedoria</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                    <tr><td>Persuasão</td><td>Carisma</td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="number"></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

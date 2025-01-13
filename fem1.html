@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG - Rolador de Dados e Iniciativa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            margin: 0 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        select,
+        input[type="number"] {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        input[type="number"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        ul {
+            margin-top: 20px;
+            list-style-type: none;
+        }
+
+        li {
+            font-size: 1.1em;
+            color: #555;
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+
+        .roll-result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #27ae60;
+            text-align: center;
+        }
+
+        /* Adicionando estilos para a seção de resultados de rolagem */
+        .resultados-container {
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .resultados-container ul {
+            margin-top: 20px;
+        }
+
+        .resultados-container li {
+            color: #2980b9;
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#iniciativa">Iniciativa</a>
+        <a href="#rolagem">Rolagem de Dados</a>
+    </nav>
+
+    <!-- Seção de Iniciativa -->
+    <div class="container" id="iniciativa">
+        <h2>Iniciativa</h2>
+        <p>Adicione jogadores ou monstros e clique para gerar a ordem de iniciativa.</p>
+        <form id="form-iniciativa">
+            <label for="nome">Nome (Jogador ou Monstro):</label>
+            <input type="text" id="nome" name="nome" required><br>
+            <label for="tipo">Tipo (Jogador ou Monstro):</label>
+            <select id="tipo" name="tipo">
+                <option value="Jogador">Jogador</option>
+                <option value="Monstro">Monstro</option>
+            </select><br>
+            <button type="submit">Adicionar</button>
+        </form>
+        <h3>Lista de Participantes:</h3>
+        <ul id="lista-participantes"></ul>
+        <button onclick="gerarIniciativa()">Gerar Iniciativa</button>
+        <div id="resultado-iniciativa" class="roll-result"></div>
+    </div>
+
+    <!-- Seção de Rolagem de Dados -->
+    <div class="container" id="rolagem">
+        <h2>Rolagem de Dados</h2>
+        <p>Escolha o tipo de dado e a quantidade de dados que deseja rolar:</p>
+        <label for="quantidade-dados">Quantidade de Dados:</label>
+        <input type="number" id="quantidade-dados" min="1" max="10" value="1"><br>
+        <select id="tipo-dado">
+            <option value="4">1d4</option>
+            <option value="6">1d6</option>
+            <option value="8">1d8</option>
+            <option value="10">1d10</option>
+            <option value="12">1d12</option>
+            <option value="20">1d20</option>
+            <option value="100">1d100</option>
+        </select>
+        <button onclick="rolarDados()">Rolar Dados</button>
+        <div id="resultado-rolagem" class="resultados-container">
+            <ul id="resultados-ul"></ul>
+        </div>
+    </div>
+
+    <script>
+        let participantes = [];
+
+        // Função para adicionar jogador ou monstro à lista de participantes
+        document.getElementById('form-iniciativa').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const tipo = document.getElementById('tipo').value;
+
+            participantes.push({ nome, tipo, iniciativa: Math.floor(Math.random() * 20) + 1 });
+
+            // Atualiza a lista de participantes
+            const lista = document.getElementById('lista-participantes');
+            const item = document.createElement('li');
+            item.textContent = `${nome} (${tipo})`;
+            lista.appendChild(item);
+
+            // Limpa o formulário
+            document.getElementById('nome').value = '';
+        });
+
+        // Função para gerar a ordem de iniciativa
+        function gerarIniciativa() {
+            participantes.sort((a, b) => b.iniciativa - a.iniciativa);
+            const resultado = participantes.map(p => `${p.nome} (${p.tipo}) - Iniciativa: ${p.iniciativa}`).join('<br>');
+            document.getElementById('resultado-iniciativa').innerHTML = 'Ordem de Iniciativa:<br>' + resultado;
+        }
+
+        // Função para rolar múltiplos dados
+        function rolarDados() {
+            const tipoDado = parseInt(document.getElementById('tipo-dado').value);
+            const quantidadeDados = parseInt(document.getElementById('quantidade-dados').value);
+
+            let resultados = [];
+            for (let i = 0; i < quantidadeDados; i++) {
+                resultados.push(Math.floor(Math.random() * tipoDado) + 1);
+            }
+
+            const ulResultados = document.getElementById('resultados-ul');
+            ulResultados.innerHTML = ''; // Limpa os resultados anteriores
+
+            resultados.forEach(resultado => {
+                const li = document.createElement('li');
+                li.textContent = `Resultado: ${resultado}`;
+                ulResultados.appendChild(li);
+            });
+        }
+    </script>
+
+</body>
+</html>
