@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha - Feiticeiros e Maldições</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2c2c;
+            margin: 0;
+            padding: 0;
+            color: #f4f4f4;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            font-size: 16px;
+            padding: 8px 15px;
+            text-decoration: none;
+            margin: 0 10px;
+            border-radius: 5px;
+            background-color: #8B0000; /* Vermelho escuro */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #6e0000; /* Tom mais escuro */
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 10px;
+            background: #3c3c3c;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .armored-class, .info, .attributes, .stats, .derivados {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .armored-class input, .editable {
+            width: 80px;
+            padding: 4px;
+            margin: 3px;
+            font-size: 12px;
+            border-radius: 4px;
+            background: #2c2c2c;
+            color: #f4f4f4;
+            border: 1px solid #666;
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .skills-column {
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th, td {
+            padding: 6px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        label {
+            font-size: 12px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 90px;
+            padding: 5px;
+            font-size: 12px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            border: 1px solid #666;
+            background-color: #3c3c3c;
+            color: #f4f4f4;
+        }
+
+        .link {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            color: #fff;
+            background-color: #8B0000;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .link:hover {
+            background-color: #6e0000;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="fem1.html" class="link">Combate</a>
+        <a href="pericias.html" class="link">Perícias</a>
+        <a href="inventario.html" class="link">Inventário</a>
+    </nav>
+
+    <div class="container">
+        <h1>Ficha - Feiticeiros e Maldições</h1>
+
+        <div class="armored-class">
+            <label>Classe de armadura</label>
+            <input type="number" id="armadura-natural" value="10" placeholder="Natural">
+            <input type="number" id="armadura-uniforme" placeholder="Uniforme">
+            <input type="number" id="armadura-escudo" placeholder="Escudo">
+            <input type="number" id="armadura-destreza" placeholder="Destreza">
+            <input type="number" id="armadura-outros" placeholder="Outros">
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="info">
+                <label>Nome: <input type="text" id="nome"></label>
+                <label>Nível: <input type="number" id="nivel" value="1" min="1" onchange="calcularMaestria()"></label>
+                <label>Maestria: <span id="maestria">2</span></label>
+                <label>Experiência: <input type="number" id="experiencia" min="0"></label>
+                <label>Origem: <input type="text" id="origem"></label>
+                <label>Especialização: <input type="text" id="especializacao"></label>
+                <label>Técnica: <input type="text" id="tecnica"></label>
+                <label>Jogador: <input type="text" id="jogador"></label>
+                <label>Campanha: <input type="text" id="campanha"></label>
+                <label>Grau: <input type="text" id="grau"></label>
+            </div>
+        </header>
+
+        <div class="attributes">
+            <h2>Atributos</h2>
+            <table>
+                <tr><th>Atributo</th><th>Valor</th><th>Modificador</th></tr>
+                <tr><td>Força</td><td><input type="number" id="forca" value="8" class="editable" onchange="atualizarModificador('forca')"></td><td id="mod-forca">-1</td></tr>
+                <tr><td>Destreza</td><td><input type="number" id="destreza" value="8" class="editable" onchange="atualizarModificador('destreza')"></td><td id="mod-destreza">-1</td></tr>
+                <tr><td>Constituição</td><td><input type="number" id="constituicao" value="8" class="editable" onchange="atualizarModificador('constituicao')"></td><td id="mod-constituicao">-1</td></tr>
+            </table>
+
+            <table>
+                <tr><th>Atributo</th><th>Valor</th><th>Modificador</th></tr>
+                <tr><td>Inteligência</td><td><input type="number" id="inteligencia" value="8" class="editable" onchange="atualizarModificador('inteligencia')"></td><td id="mod-inteligencia">-1</td></tr>
+                <tr><td>Sabedoria</td><td><input type="number" id="sabedoria" value="8" class="editable" onchange="atualizarModificador('sabedoria')"></td><td id="mod-sabedoria">-1</td></tr>
+                <tr><td>Carisma</td><td><input type="number" id="carisma" value="8" class="editable" onchange="atualizarModificador('carisma')"></td><td id="mod-carisma">-1</td></tr>
+            </table>
+        </div>
+
+        <div class="stats">
+            <h2>Estatísticas</h2>
+            <table>
+                <tr>Pontos de Vida</p></tr>Pontos de Energia</p><tr>Integridade</p>
+                <tr>
+                    <td>
+                        <label>Atuais: <input type="number" id="pv-atuais" value="10" class="editable"></label>
+                        <label>Máximo: <input type="number" id="pv-maximo" value="10" class="editable" onchange="atualizarStats()"></label>
+                        <label>Temporário: <input type="number" id="pv-temp" value="0" class="editable" onchange="atualizarStats()"></label>
+                    </td>
+                    <td>
+                        <label>Atuais: <input type="number" id="pe-atuais" value="10" class="editable"></label>
+                        <label>Máximo: <input type="number" id="pe-maximo" value="10" class="editable" onchange="atualizarStats()"></label>
+                        <label>Temporário: <input type="number" id="pe-temp" value="0" class="editable" onchange="atualizarStats()"></label>
+                    </td>
+                    <td>
+                        <label>Atuais: <input type="number" id="int-atuais" value="10" class="editable"></label>
+                        <label>Máximo: <input type="number" id="int-maximo" value="10" class="editable" onchange="atualizarStats()"></label>
+                        <label>Temporário: <input type="number" id="int-temp" value="0" class="editable" onchange="atualizarStats()"></label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="derivados">
+            <h2>Derivados</h2>
+            <table>
+                <tr><th>Atenção</th><th>Iniciativa</th><th>Movimento</th></tr>
+                <tr><td><input type="number" id="atencao" value="8" class="editable" onchange="atualizarStats()"></td><td><input type="number" id="iniciativa" value="8" class="editable" onchange="atualizarStats()"></td><td><input type="number" id="movimento" value="6" class="editable" onchange="atualizarStats()"></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Função para calcular o modificador de atributo
+        function atualizarModificador(atributo) {
+            const valor = document.getElementById(atributo).value;
+            const modificador = Math.floor((valor - 10) / 2);
+            document.getElementById(`mod-${atributo}`).textContent = modificador;
+        }
+
+        // Função para calcular a maestria
+        function calcularMaestria() {
+            const nivel = document.getElementById('nivel').value;
+            const maestria = Math.floor(nivel / 4) + 2; // A maestria começa em 2
+            document.getElementById('maestria').textContent = maestria;
+        }
+
+        // Função para atualizar os valores dos pontos de vida, energia e integridade
+        function atualizarStats() {
+            // Atualização de campos (Exemplo de uso do valor máximo para atualizar total)
+            const pvMaximo = parseInt(document.getElementById('pv-maximo').value) || 0;
+            const peMaximo = parseInt(document.getElementById('pe-maximo').value) || 0;
+            const intMaximo = parseInt(document.getElementById('int-maximo').value) || 0;
+
+            document.getElementById('pv-atuais').value = pvMaximo; 
+            document.getElementById('pe-atuais').value = peMaximo; 
+            document.getElementById('int-atuais').value = intMaximo;
+        }
+
+        // Inicializar os modificadores ao carregar a página
+        window.onload = () => {
+            const atributos = ['forca', 'destreza', 'constituicao', 'inteligencia', 'sabedoria', 'carisma'];
+            atributos.forEach(atualizarModificador);
+
+            // Inicializar a maestria ao carregar
+            calcularMaestria();
+
+            // Inicializar as stats
+            atualizarStats();
+        };
+    </script>
+</body>
+</html>

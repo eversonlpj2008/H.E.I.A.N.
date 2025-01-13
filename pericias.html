@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perícias RPG</title>
     <style>
+        /* Estilos gerais */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -22,7 +23,7 @@
             display: flex;
             justify-content: space-between;
             gap: 15px;
-            flex-wrap: wrap; /* Permite o ajuste responsivo em telas menores */
+            flex-wrap: wrap;
         }
 
         .skills-column {
@@ -32,13 +33,14 @@
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
             padding: 15px;
             margin-bottom: 20px;
-            min-width: 250px; /* Tamanho mínimo para cada coluna */
+            min-width: 250px;
         }
 
+        /* Tabela */
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px; /* Ajusta o tamanho da fonte */
+            font-size: 14px;
         }
 
         th, td {
@@ -55,18 +57,25 @@
 
         td {
             background-color: #f9f9f9;
+            color: #333333;
         }
 
+        tr:nth-child(even) td {
+            background-color: #e9e9e9;
+        }
+
+        /* Estilo dos inputs */
         input[type="checkbox"] {
             width: 18px;
             height: 18px;
         }
 
         input[type="number"] {
-            width: 50px;
+            width: 60px;
             padding: 5px;
             text-align: center;
         }
+
     </style>
 </head>
 <body>
